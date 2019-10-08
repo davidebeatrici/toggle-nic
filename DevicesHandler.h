@@ -10,7 +10,6 @@ class DevicesHandler
 			Toggle
 		};
 
-		static bool isRunningAsAdmin();
 		bool enumerateNics();
 		bool toggleNetDevice(const unsigned long &index, const Action &action);
 

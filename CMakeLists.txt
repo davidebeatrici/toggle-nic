@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(toggle-nic)
 
-add_executable(${CMAKE_PROJECT_NAME} "main.cpp" "DevicesHandler.cpp" "DevicesHandler.h")
+add_executable(${CMAKE_PROJECT_NAME} "main.cpp" "DevicesHandler.cpp" "DevicesHandler.h" "WinUtils.cpp" "WinUtils.h")
 
 add_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE "WIN32_LEAN_AND_MEAN" "UNICODE")
 

@@ -1,5 +1,7 @@
 #include "DevicesHandler.h"
 
+#include "WinUtils.h"
+
 #include <iostream>
 
 #include <windows.h>
@@ -26,36 +28,6 @@ DevicesHandler::~DevicesHandler()
 	if (!SetupDiDestroyDeviceInfoList(handle)) {
 		std::cout << "DevicesHandler::~DevicesHandler(): SetupDiDestroyDeviceInfoList() failed with error: " << GetLastError() << std::endl;
 	}
-}
-
-bool DevicesHandler::isRunningAsAdmin()
-{
-	bool asAdmin = false;
-	HANDLE hToken;
-
-	if (!OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &hToken)) {
-		std::cout << "DevicesHandler::isRunningAsAdmin(): OpenProcessToken() failed with error: " << GetLastError();
-		CloseHandle(hToken);
-		return false;
-	}
-
-	DWORD requiredSize;
-	TOKEN_ELEVATION elevation;
-
-	if (GetTokenInformation(hToken, TokenElevation, &elevation, sizeof(elevation), &requiredSize)) {
-		asAdmin = elevation.TokenIsElevated;
-	} else {
-		const DWORD err = GetLastError();
-		std::cout << "DevicesHandler::isRunningAsAdmin(): GetTokenInformation() failed with error: " << err << std::endl;
-
-		if (err == ERROR_INVALID_PARAMETER) {
-			std::cout << "DevicesHandler::isRunningAsAdmin(): Windows versions older than Vista are not supported." << std::endl;
-		}
-	}
-
-	CloseHandle(hToken);
-
-	return asAdmin;
 }
 
 bool DevicesHandler::enumerateNics()
@@ -101,7 +73,7 @@ bool DevicesHandler::enumerateNics()
 
 bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &action)
 {
-	if (!isRunningAsAdmin()) {
+	if (!WinUtils::isRunningAsAdmin()) {
 		std::cout << "DevicesHandler::toggleNetDevice(): Administrator privileges are required in order to change a device's state.";
 		return false;
 	}
