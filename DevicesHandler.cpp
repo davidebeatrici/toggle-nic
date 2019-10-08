@@ -52,7 +52,7 @@ bool DevicesHandler::enumerateNics()
 
 		std::wstring name(requiredSize, 0);
 
-		if (!SetupDiGetDeviceRegistryProperty(handle, &deviceInfoData, SPDRP_FRIENDLYNAME, nullptr, reinterpret_cast<PBYTE>(&name[0]), name.size(), nullptr)) {
+		if (!SetupDiGetDeviceRegistryProperty(handle, &deviceInfoData, SPDRP_FRIENDLYNAME, nullptr, reinterpret_cast<PBYTE>(&name[0]), static_cast<DWORD>(name.size()), nullptr)) {
 			std::cout << "DevicesHandler::enumerateNics(): SetupDiGetDeviceRegistryProperty() failed with error: " << GetLastError() << std::endl;
 			return false;
 		}
