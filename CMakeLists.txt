@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(toggle_nic)
+project(toggle-nic)
 
-add_executable(toggle_nic "main.cpp" "DevicesHandler.cpp" "DevicesHandler.h")
+add_executable(${CMAKE_PROJECT_NAME} "main.cpp" "DevicesHandler.cpp" "DevicesHandler.h")
 
-add_compile_definitions(toggle_nic PRIVATE "WIN32_LEAN_AND_MEAN" "UNICODE")
+add_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE "WIN32_LEAN_AND_MEAN" "UNICODE")
 
 find_library(LIB_SETUPAPI "setupapi")
 
-target_link_libraries(toggle_nic PRIVATE ${LIB_SETUPAPI})
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${LIB_SETUPAPI})
 
 if(MINGW)
-	set_target_properties(toggle_nic PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++")
+	set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_FLAGS "-static-libgcc -static-libstdc++")
 endif()

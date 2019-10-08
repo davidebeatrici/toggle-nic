@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 	}
 
 	std::cout << "----- Usage -----" << std::endl << std::endl;
-	std::cout << "List interfaces: \"toggle_nic.exe --list\"" << std::endl;
-	std::cout << "Disable interface #11: \"toggle_nic.exe 11 --disable\"" << std::endl;
-	std::cout << "Enable interface #11: \"toggle_nic.exe 11 --enable\"" << std::endl;
+	std::cout << "List interfaces: \"toggle-nic --list\"" << std::endl;
+	std::cout << "Disable interface #11: \"toggle-nic 11 --disable\"" << std::endl;
+	std::cout << "Enable interface #11: \"toggle-nic 11 --enable\"" << std::endl;
 
 	return 0;
 }
