@@ -1,0 +1,7 @@
+jobs:
+- template: ".ci/msvc.yml"
+  parameters:
+    bits: "64"
+- template: ".ci/msvc.yml"
+  parameters:
+    bits: "32"
