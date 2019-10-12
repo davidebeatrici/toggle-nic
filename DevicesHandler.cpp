@@ -126,9 +126,7 @@ bool DevicesHandler::toggleNic(const unsigned long &index, const Action &action)
 	}
 
 	if (!SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, handle, &deviceInfoData)) {
-		const DWORD err = GetLastError();
-
-		std::cout << "DevicesHandler::toggleNic(): SetupDiCallClassInstaller() failed with error: " << err << std::endl;
+		std::cout << "DevicesHandler::toggleNic(): SetupDiCallClassInstaller() failed with error: " << GetLastError() << std::endl;
 
 		// Clear parameters, otherwise the device remains in an inconsistent state (e.g. with the enabled icon even if disabled).
 		SetupDiSetClassInstallParams(handle, &deviceInfoData, nullptr, 0);
