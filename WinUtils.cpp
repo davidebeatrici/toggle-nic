@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "windows.h"
+#include <windows.h>
 
 bool WinUtils::isRunningAsAdmin()
 {
