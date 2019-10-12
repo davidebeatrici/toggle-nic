@@ -24,21 +24,21 @@ int main(int argc, char *argv[])
 			}
 
 			if (strcmp(argv[2], "--disable") == 0) {
-				if (devicesHandler.toggleNetDevice(index, DevicesHandler::Disable)) {
+				if (devicesHandler.toggleNic(index, DevicesHandler::Disable)) {
 					std::cout << "Network interface #" << index << " successfully disabled!" << std::endl;
 					return 0;
 				}
 
 				return 1;
 			} else if (strcmp(argv[2], "--enable") == 0) {
-				if (devicesHandler.toggleNetDevice(index, DevicesHandler::Enable)) {
+				if (devicesHandler.toggleNic(index, DevicesHandler::Enable)) {
 					std::cout << "Network interface #" << index << " successfully enabled!" << std::endl;
 					return 0;
 				}
 
 				return 1;
 			} else if (strcmp(argv[2], "--toggle") == 0) {
-				if (devicesHandler.toggleNetDevice(index, DevicesHandler::Toggle)) {
+				if (devicesHandler.toggleNic(index, DevicesHandler::Toggle)) {
 					std::cout << "Network interface #" << index << " successfully toggled!" << std::endl;
 					return 0;
 				}

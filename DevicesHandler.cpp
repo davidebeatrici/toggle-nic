@@ -71,10 +71,10 @@ bool DevicesHandler::enumerateNics()
 	return true;
 }
 
-bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &action)
+bool DevicesHandler::toggleNic(const unsigned long &index, const Action &action)
 {
 	if (!WinUtils::isRunningAsAdmin()) {
-		std::cout << "DevicesHandler::toggleNetDevice(): Administrator privileges are required in order to change a device's state.";
+		std::cout << "DevicesHandler::toggleNic(): Administrator privileges are required in order to change a device's state.";
 		return false;
 	}
 
@@ -86,7 +86,7 @@ bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &a
 	deviceInfoData.cbSize = sizeof(deviceInfoData);
 
 	if (!SetupDiEnumDeviceInfo(handle, index, &deviceInfoData)) {
-		std::cout << "DevicesHandler::toggleNetDevice(): SetupDiEnumDeviceInfo() failed with error: " << GetLastError() << std::endl;
+		std::cout << "DevicesHandler::toggleNic(): SetupDiEnumDeviceInfo() failed with error: " << GetLastError() << std::endl;
 		return false;
 	}
 
@@ -103,7 +103,7 @@ bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &a
 			ULONG status, problem;
 			const CONFIGRET ret = CM_Get_DevNode_Status(&status, &problem, deviceInfoData.DevInst, 0);
 			if (ret != CR_SUCCESS) {
-				std::cout << "DevicesHandler::toggleNetDevice(): CM_Get_DevNode_Status() failed with error: " << ret << std::endl;
+				std::cout << "DevicesHandler::toggleNic(): CM_Get_DevNode_Status() failed with error: " << ret << std::endl;
 				return false;
 			}
 
@@ -111,7 +111,7 @@ bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &a
 			break;
 		}
 		default:
-			std::cout << "DevicesHandler::toggleNetDevice(): Unrecognized action: " << action << std::endl;
+			std::cout << "DevicesHandler::toggleNic(): Unrecognized action: " << action << std::endl;
 			return false;
 	}
 
@@ -121,14 +121,14 @@ bool DevicesHandler::toggleNetDevice(const unsigned long &index, const Action &a
 	propChangeParams.ClassInstallHeader.cbSize = sizeof(propChangeParams.ClassInstallHeader);
 
 	if (!SetupDiSetClassInstallParams(handle, &deviceInfoData, &propChangeParams.ClassInstallHeader, sizeof(propChangeParams))) {
-		std::cout << "DevicesHandler::toggleNetDevice(): SetupDiSetClassInstallParams() failed with error: " << GetLastError() << std::endl;
+		std::cout << "DevicesHandler::toggleNic(): SetupDiSetClassInstallParams() failed with error: " << GetLastError() << std::endl;
 		return false;
 	}
 
 	if (!SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, handle, &deviceInfoData)) {
 		const DWORD err = GetLastError();
 
-		std::cout << "DevicesHandler::toggleNetDevice(): SetupDiCallClassInstaller() failed with error: " << err << std::endl;
+		std::cout << "DevicesHandler::toggleNic(): SetupDiCallClassInstaller() failed with error: " << err << std::endl;
 
 		// Clear parameters, otherwise the device remains in an inconsistent state (e.g. with the enabled icon even if disabled).
 		SetupDiSetClassInstallParams(handle, &deviceInfoData, nullptr, 0);

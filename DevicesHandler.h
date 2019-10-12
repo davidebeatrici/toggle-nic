@@ -11,7 +11,7 @@ class DevicesHandler
 		};
 
 		bool enumerateNics();
-		bool toggleNetDevice(const unsigned long &index, const Action &action);
+		bool toggleNic(const unsigned long &index, const Action &action);
 
 		DevicesHandler();
 		~DevicesHandler();
