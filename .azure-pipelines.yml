@@ -1,7 +1,16 @@
 jobs:
 - template: ".ci/msvc.yml"
   parameters:
-    bits: "64"
+    arch: "ARM64"
+    vcvarsArg: "amd64_arm64"
+    vcvarsPath: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat"
 - template: ".ci/msvc.yml"
   parameters:
-    bits: "32"
+    arch: "x64"
+    vcvarsArg: "x64"
+    vcvarsPath: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat"
+- template: ".ci/msvc.yml"
+  parameters:
+    arch: "x86"
+    vcvarsArg: "x64_x86"
+    vcvarsPath: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvarsall.bat"

@@ -1,16 +1,15 @@
 jobs:
-- job: "msvc_${{parameters.bits}}"
-  displayName: "MSVC (${{parameters.bits}} bit)"
+- job: "Windows_${{parameters.arch}}"
   pool:
     vmImage: "windows-latest"
   steps:
   - script: |
       cd $(Build.BinariesDirectory)
-      call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars${{parameters.bits}}.bat"
+      call "${{parameters.vcvarsPath}}" ${{parameters.vcvarsArg}}
       cmake -G "NMake Makefiles" $(Build.SourcesDirectory)
       set CL=/MP
       nmake
     displayName: "Build"
   - template: "artifacts-steps.yml"
     parameters:
-      name: "Windows ${{parameters.bits}} bit (MSVC)"
+      name: "Windows (${{parameters.arch}})"
